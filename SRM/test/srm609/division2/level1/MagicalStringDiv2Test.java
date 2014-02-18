@@ -14,6 +14,7 @@ public class MagicalStringDiv2Test {
         Assert.assertEquals(2, move);
 
     }
+
     @Test
     public void example1() throws Exception {
         MagicalStringDiv2 a = new MagicalStringDiv2();
@@ -21,6 +22,7 @@ public class MagicalStringDiv2Test {
         Assert.assertEquals(0, move);
 
     }
+
     @Test
     public void example2() throws Exception {
         MagicalStringDiv2 a = new MagicalStringDiv2();
@@ -28,6 +30,7 @@ public class MagicalStringDiv2Test {
         Assert.assertEquals(4, move);
 
     }
+
     @Test
     public void example3() throws Exception {
         MagicalStringDiv2 a = new MagicalStringDiv2();
