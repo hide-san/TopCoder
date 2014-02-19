@@ -1,4 +1,4 @@
-package srm609.division2.level1;
+package div2.srm609.level1;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,7 +9,7 @@ import org.junit.Test;
 public class MagicalStringDiv2Test {
     @Test
     public void example0() throws Exception {
-        srm609.division2.level1.MagicalStringDiv2 a = new MagicalStringDiv2();
+        div2.srm609.level1.MagicalStringDiv2 a = new MagicalStringDiv2();
         int move = a.minimalMoves(">><<><");
         Assert.assertEquals(2, move);
 

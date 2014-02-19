@@ -1,5 +1,6 @@
-package srm609.division2.level2;
+package div2.srm609.level2;
 
+import div2.srm609.level2.PackingBallsDiv2;
 import junit.framework.Assert;
 import org.junit.Test;
 

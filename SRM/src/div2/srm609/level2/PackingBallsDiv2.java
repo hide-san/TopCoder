@@ -1,4 +1,4 @@
-package srm609.division2.level2;
+package div2.srm609.level2;
 
 /**
  * Created by hideo on 2/19/14.
