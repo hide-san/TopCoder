@@ -12,7 +12,6 @@ public class DivideByZero {
         for (int i = 0; i < numbers.length; i++){
             numberVector.add(numbers[i]);
         }
-        Collections.reverse(numberVector);
 
         int count = numbers.length;
         int A, B, C;
