@@ -23,14 +23,12 @@ public class SortishDiv2 {
         }
 
         int[] nextSeq = new int[seq.length];
-        System.arraycopy(seq, 0, nextSeq, 0, seq.length);
 
         depth++;
-        for (int nextNumber : getNextNumbers(nextSeq, depth)) {
-            int temp = seq[depth];
-            seq[depth] = nextNumber;
-            fillNumber(seq, depth);
-            seq[depth] = temp;
+        for (int nextNumber : getNextNumbers(seq, depth)) {
+            System.arraycopy(seq, 0, nextSeq, 0, seq.length);
+            nextSeq[depth] = nextNumber;
+            fillNumber(nextSeq, depth);
         }
     }
 
