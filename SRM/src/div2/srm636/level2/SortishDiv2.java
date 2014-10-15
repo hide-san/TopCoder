@@ -23,7 +23,7 @@ public class SortishDiv2 {
         }
 
         int[] nextSeq = new int[seq.length];
-        for (int i = 0; i < seq.length; i++) nextSeq[i] = seq[i];
+        System.arraycopy(seq, 0, nextSeq, 0, seq.length);
 
         depth++;
         for (int nextNumber : getNextNumbers(nextSeq, depth)) {
@@ -45,8 +45,8 @@ public class SortishDiv2 {
         List<Integer> nextNumberList = new ArrayList<Integer>();
         for (int i = 1; i < seq.length + 1; i++) {
             boolean addFlag = true;
-            for (int j = 0; j < seq.length; j++) {
-                if (i == seq[j]) addFlag = false;
+            for (int aSeq : seq) {
+                if (i == aSeq) addFlag = false;
             }
             if (addFlag) nextNumberList.add(i);
         }
