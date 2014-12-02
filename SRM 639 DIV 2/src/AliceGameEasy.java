@@ -1,44 +1,25 @@
 public class AliceGameEasy {
     final long NO_ANSWER = -1;
 
-    public long findMinimumValue(long x, long y) {
-        long situation = 0;
-        Score score = new Score();
-        while (score.alicePoint <= x || score.kiritoPoint <= y) {
-            score = getScore(situation);
-            if (score.alicePoint == x && score.kiritoPoint == y) {
-                return score.aliceWinCount;
-            }
-            situation++;
+    public long findMinimumValue(final long x, final long y) {
+        long totalScore = 0;
+        long turn = 0;
+        while (true) {
+            if (totalScore > x + y) return NO_ANSWER;
+            if (totalScore == x + y) break;
+            turn++;
+            totalScore += turn;
         }
 
-        return NO_ANSWER;
-    }
-
-    private Score getScore(long situation) {
-        Score score = new Score();
-
-        while (situation > 0) {
-            long aliceWinBit = situation % 2;
-            situation = situation / 2;
-
-            score.turn++;
-            if (aliceWinBit == 1L) {
-                score.alicePoint = score.alicePoint + score.turn;
-                score.aliceWinCount++;
-            } else {
-                score.kiritoPoint = score.kiritoPoint + score.turn;
+        long aliceWinCount = 0;
+        long alicePoint = x;
+        for (long i = turn; i > 0; i--) {
+            if (i <= alicePoint) {
+                aliceWinCount++;
+                alicePoint -= i;
             }
         }
 
-        return score;
-    }
-
-
-    public class Score {
-        long turn;
-        long aliceWinCount;
-        long alicePoint;
-        long kiritoPoint;
+        return aliceWinCount;
     }
 }
