@@ -7,8 +7,7 @@ public class TrianglesContainOriginEasy {
         for (int i = 0; i < N; i++) {
             for (int j = i + 1; j < N; j++) {
                 for (int k = j + 1; k < N; k++) {
-                    System.out.println(i + "\t" + j + "\t" + k);
-                    count += check(x[i], y[i], x[j], y[j], x[k], y[k]);
+                    count += checkOriginInside(x[i], y[i], x[j], y[j], x[k], y[k]);
                 }
             }
         }
@@ -16,19 +15,25 @@ public class TrianglesContainOriginEasy {
         return count;
     }
 
-    private int check(int x0, int y0, int x1, int y1, int x2, int y2) {
-        double[] arr = new double[2];
-        if (x0 * y1 - x1 * y0 == 0) {
-            arr[0] = Double.NaN;
-            arr[1] = Double.NaN;
-        } else {
-            arr[0] = (y1 * x2 - x1 * y2) / (x0 * y1 - x1 * y0);
-            arr[1] = (x0 * y2 - y0 * x2) / (x0 * y1 - x1 * y0);
-        }
+    private int checkOriginInside(int x0, int y0, int x1, int y1, int x2, int y2) {
+        double s1 = triangleSize(x0, y0, x1, y1);
+        double s2 = triangleSize(x1, y1, x2, y2);
+        double s3 = triangleSize(x2, y2, x0, y0);
 
-        if (arr[0] > 0 && arr[1] > 0 && arr[0] + arr[1] < 1) {
+        double s = triangleSize(x0, y0, x1, y1, x2, y2);
+
+        if (s1 + s2 + s3 > s) {
+            return 0;
+        } else {
             return 1;
         }
-        return 0;
+    }
+
+    private static double triangleSize(int x0, int y0, int x1, int y1) {
+        return triangleSize(x0, y0, x1, y1, 0, 0);
+    }
+
+    private static double triangleSize(int x0, int y0, int x1, int y1, int x2, int y2) {
+        return Math.abs(x0 * y1 + x1 * y2 + x2 * y0 - y0 * x1 - y1 * x2 - y2 * x0) / 2.0d;
     }
 }
