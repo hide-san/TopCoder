@@ -2,17 +2,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NumberGameAgain {
-    private List<Long> TABLE = new ArrayList<Long>();
 
     public long solve(int k, long[] table) {
-        for (long forbiddenNumber : table) TABLE.add(forbiddenNumber);
-
         long numbers = (long) Math.pow(2, k) - 1;
         numbers -= 1; // No count "1"
 
-        cleanupTable();
+        table = cleanupTable(table);
 
-        for (long forbiddenNumber : TABLE) {
+        for (long forbiddenNumber : table) {
             int n = Math.getExponent((double) forbiddenNumber);
             numbers -= (long) Math.pow(2, k - n) - 1;
         }
@@ -20,12 +17,12 @@ public class NumberGameAgain {
         return numbers;
     }
 
-    void cleanupTable() {
+    long[] cleanupTable(long[] table) {
         List<Long> newTable = new ArrayList<Long>();
-        for (Long i : TABLE) newTable.add(i);
+        for (Long i : table) newTable.add(i);
 
-        for (Long i : TABLE) {
-            for (Long j : TABLE) {
+        for (Long i : table) {
+            for (Long j : table) {
 
                 boolean isRemoved = false;
                 Long baseNumber = i;
@@ -41,7 +38,10 @@ public class NumberGameAgain {
             }
         }
 
-        TABLE = newTable;
+        long[] cleanTable = new long[newTable.size()];
+        for (int i = 0; i < newTable.size(); i++) cleanTable[i] = newTable.get(i);
+
+        return cleanTable;
     }
 
 }
