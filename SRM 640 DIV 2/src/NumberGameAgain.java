@@ -1,13 +1,11 @@
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 public class NumberGameAgain {
-    private static final long INITIAL_NUMBER = 1;
+    private final long INITIAL_NUMBER = 1;
 
-    private static int K;
-    private static final List<Long> TABLE = new ArrayList<Long>();
+    private int K;
+    private List<Long> TABLE = new ArrayList<Long>();
 
     public long solve(int k, long[] table) {
         K = k;
@@ -15,59 +13,45 @@ public class NumberGameAgain {
             TABLE.add(forbiddenNumber);
         }
 
-        long countOfGoalToWin = -1; // This is -1 since "1", the initial value, is not counted.
+        long numbers = (long) Math.pow(2, K) - 1;
+        numbers -= 1; // No count "1"
 
-        Queue<State> queue = new ArrayDeque<State>();
-        queue.offer(new State(INITIAL_NUMBER));
-        while (!queue.isEmpty()) {
-            State thisState = queue.poll();
-            if (thisState.isEndCondition()) break;
+        cleanupTable();
 
-            if (thisState.isLose()) {
-                continue;
-            } else {
-                System.out.println(thisState);
-                countOfGoalToWin++;
-            }
-
-            // Note: Looping over an ArrayList. So get items in the order they were inserted.
-            // Need to check 2x before 2x+1 for the isEndCondition;
-            for (State nextState : thisState.getNextStates()) {
-                queue.offer(nextState);
-            }
+        for (long forbiddenNumber : TABLE) {
+            int n = Math.getExponent((double) forbiddenNumber);
+            numbers -= (long) Math.pow(2, K - n) - 1;
         }
 
-        return countOfGoalToWin;
+        return numbers;
+
     }
 
+    void cleanupTable() {
+        List<Long> newTable = new ArrayList<Long>();
+        for (Long i : TABLE) newTable.add(i);
 
-    private class State {
-        Long x;
+        for (Long i : TABLE) {
+            boolean isRemoved = false;
+            int devideCont = 0;
+            for (Long j : TABLE) {
 
-        public State(long x) {
-            this.x = x;
+                Long temp = i;
+                while (temp >= 2) {
+                    temp = temp / 2;
+                    devideCont++;
+                    if (temp.equals(j)) {
+//                        System.out.println("i:" + i + "\tj:" + j + "\td:" + devideCont);
+                        newTable.remove(i);
+                        isRemoved = true;
+                    }
+                    if (isRemoved) break;
+                }
+                if (isRemoved) break;
+            }
         }
 
-        @Override
-        public String toString() {
-            return "X = " + x;
-        }
-
-        public State[] getNextStates() {
-            State[] nextStates = new State[2];
-
-            nextStates[0] = new State(2 * x);
-            nextStates[1] = new State(2 * x + 1);
-
-            return nextStates;
-        }
-
-        public boolean isLose() {
-            return TABLE.contains(x);
-        }
-
-        public boolean isEndCondition() {
-            return (x > Math.pow(2, K) - 1);
-        }
+        TABLE = newTable;
     }
+
 }
