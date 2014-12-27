@@ -31,7 +31,7 @@ public class TheKingsFactorizationTest {
 		assertArrayEquals(new long[] {7, 7 }, new TheKingsFactorization().getVector(N, primes));
 	}
 	
-	@Test
+	@Test(timeout=2000)
 	public void test4() {
 		long N = 210L;
 		long[] primes = new long[] {2, 5};
