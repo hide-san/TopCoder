@@ -15,19 +15,26 @@ public class TheKingsFactorization {
             }
         }
 
+        List<Long> nextAnswers = new ArrayList<Long>();
         if (N != 0) {
             while (N % 2 == 0) {
                 N = N / 2;
                 answers.add(2L);
             }
-            for (long i = 3; i <= N; i += 2) {
-                while (N % i == 0) {
-                    N = N / i;
-                    answers.add(i);
+            for (long answer : answers) {
+                boolean added = false;
+                for (long i = answer; i <= N; i++) {
+                    while (N % i == 0) {
+                        N = N / i;
+                        nextAnswers.add(i);
+                        added = true;
+                    }
+                    if (added) break;
                 }
             }
         }
 
+        answers.addAll(nextAnswers);
 
         long[] longArrayAnswers = new long[answers.size()];
         for (int i = 0; i < answers.size(); i++) longArrayAnswers[i] = answers.get(i);
