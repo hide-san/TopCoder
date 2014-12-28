@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TheKingsFactorization {
@@ -15,18 +16,13 @@ public class TheKingsFactorization {
                 break;
             }
 
-            if (N % primes[i] == 0) {
-                answerList.add(primes[i]);
-                N = N / primes[i];
-                continue;
-            }
-
-            for (long thisNumber = primes[i]; thisNumber <= N; thisNumber++) {
+            for (long thisNumber = primes[i]; thisNumber <= primes[i + 1]; thisNumber++) {
                 if (N % thisNumber == 0) {
                     answerList.add(thisNumber);
                     N = N / thisNumber;
                     break;
                 }
+                if (thisNumber != 2) thisNumber++; // Not to check even numbers;
             }
         }
 
