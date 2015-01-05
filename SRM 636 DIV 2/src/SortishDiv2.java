@@ -62,23 +62,22 @@ public class SortishDiv2 {
     private List<int[]> getNextSeq(final int[] seq) {
         List<int[]> nextSeqList = new ArrayList<int[]>();
 
-        for (int i = 0; i < seq.length; i++) {
-            if (seq[i] == ERASED) {
-                for (int j = 1; j < seq.length + 1; j++) {
-                    if (hasSpecificSeq(seq, j)) {
-                        continue;
-                    }
+        int indexOfErasedSeq = 0;
+        while (seq[indexOfErasedSeq] != ERASED) {
+            indexOfErasedSeq++;
+        }
 
-                    int[] nextSeq = new int[seq.length];
-                    System.arraycopy(seq, 0, nextSeq, 0, seq.length);
-                    nextSeq[i] = j;
-                    nextSeqList.add(nextSeq);
-                }
-                break;
+        for (int erasedSeq = 1; erasedSeq < seq.length + 1; erasedSeq++) {
+            if (hasSpecificSeq(seq, erasedSeq)) {
+                continue;
             }
+
+            int[] nextSeq = new int[seq.length];
+            System.arraycopy(seq, 0, nextSeq, 0, seq.length);
+            nextSeq[indexOfErasedSeq] = erasedSeq;
+            nextSeqList.add(nextSeq);
         }
 
         return nextSeqList;
     }
-
 }
