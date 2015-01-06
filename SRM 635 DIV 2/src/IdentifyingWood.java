@@ -13,8 +13,8 @@ public class IdentifyingWood {
             if (matchCount == t.length()) {
                 return WOOD;
             }
-
         }
+
         return NOT_WOOD;
     }
 }
